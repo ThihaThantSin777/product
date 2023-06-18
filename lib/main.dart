@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:product/constant/strings.dart';
+import 'package:product/data/model/product_model.dart';
+import 'package:product/data/model/product_model_impl.dart';
 import 'package:product/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
+  ProductModel _productModel = ProductModelImpl();
+  _productModel.getProduct().then((value) {
+    print("Value===>$value");
+  });
 }
 
 class MyApp extends StatelessWidget {
