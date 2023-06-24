@@ -4,10 +4,14 @@ import 'package:product/utils/extensions.dart';
 import 'package:product/utils/random_colors.dart';
 import 'package:product/widgets/easy_text_widget.dart';
 
+import '../../data/vos/product_vo/product_vo.dart';
+
 class ProductItemView extends StatelessWidget {
-  const ProductItemView({super.key, required this.onTap});
+  const ProductItemView(
+      {super.key, required this.onTap, required this.productVO});
 
   final Function onTap;
+  final ProductVO? productVO;
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +25,18 @@ class ProductItemView extends StatelessWidget {
             backgroundColor: RandomColor.getRandomColor(),
             child: EasyTextWidget(
               fontWeight: FontWeight.w600,
-              text: "Product".getPrefix(),
+              text: (productVO?.title ?? '').getPrefix(),
             ),
           ),
-          title: const EasyTextWidget(
-            text: "Clothes",
+          title: EasyTextWidget(
+            text: (productVO?.title ?? ''),
             fontWeight: FontWeight.w700,
             fontSize: kFontSize18x,
           ),
-          subtitle: const EasyTextWidget(
-            text: "All in on Packages",
+          subtitle: EasyTextWidget(
+            text: (productVO?.description ?? ''),
             fontWeight: FontWeight.w300,
+            maxLine: 3,
           ),
         ),
       ),

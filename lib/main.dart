@@ -7,8 +7,10 @@ import 'package:product/pages/home_page.dart';
 void main() {
   runApp(const MyApp());
   ProductModel _productModel = ProductModelImpl();
-  _productModel.getProduct().then((value) {
+  _productModel.getSingleProduct("special-cotton-shirt-for-men").then((value) {
     print("Value===>$value");
+  }).catchError((error) {
+    print("Error===>$error");
   });
 }
 
