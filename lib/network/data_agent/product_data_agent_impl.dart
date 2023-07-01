@@ -7,9 +7,13 @@ import '../api/product_api.dart';
 class ProductDataAgentImpl extends ProductDataAgent {
   late ProductAPI _productAPI;
 
-  ProductDataAgentImpl() {
+  ProductDataAgentImpl._() {
     _productAPI = ProductAPI(Dio());
   }
+
+  static final ProductDataAgentImpl _singleton = ProductDataAgentImpl._();
+
+  factory ProductDataAgentImpl() => _singleton;
 
   @override
   Future<List<ProductVO>?> getProduct() {
@@ -19,4 +23,11 @@ class ProductDataAgentImpl extends ProductDataAgent {
         .map((event) => event.data)
         .first;
   }
+
+  @override
+  Future<ProductVO?> getOneProduct(String slug) => _productAPI
+      .getSingleProductResponse(slug)
+      .asStream()
+      .map((event) => event.data)
+      .first;
 }

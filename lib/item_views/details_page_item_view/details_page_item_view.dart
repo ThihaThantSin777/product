@@ -6,28 +6,40 @@ import 'package:product/constant/strings.dart';
 import 'package:product/widgets/easy_text_widget.dart';
 import 'package:product/widgets/loading_widget.dart';
 
+import '../../data/vos/product_vo/product_vo.dart';
+
 class ProductDetailsItemView extends StatelessWidget {
-  const ProductDetailsItemView({super.key});
+  const ProductDetailsItemView({super.key, required this.productVO});
+
+  final ProductVO? productVO;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(kSP10x),
-      children: const [
-        ProductImageView(),
-        SizedBox(
+      children: [
+        ProductImageView(
+          productImage: productVO?.image ?? "",
+        ),
+        const SizedBox(
           height: kSP10x,
         ),
-        ProductPrice(),
-        SizedBox(
+        ProductPrice(
+          price: productVO?.price ?? 0,
+        ),
+        const SizedBox(
           height: kSP20x,
         ),
-        ProductDescriptionView(),
-        SizedBox(
+        ProductDescriptionView(
+          description: productVO?.description ?? '',
+        ),
+        const SizedBox(
           height: kSP20x,
         ),
-        ProductCreatorView(),
-        SizedBox(
+        ProductCreatorView(
+          creatorName: productVO?.createdBy?.name ?? '',
+        ),
+        const SizedBox(
           height: kSP60x,
         ),
       ],
@@ -36,78 +48,82 @@ class ProductDetailsItemView extends StatelessWidget {
 }
 
 class ProductCreatorView extends StatelessWidget {
-  const ProductCreatorView({super.key});
+  const ProductCreatorView({super.key, required this.creatorName});
+
+  final String creatorName;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        EasyTextWidget(
+        const EasyTextWidget(
           text: kCreatorText,
           fontWeight: FontWeight.w600,
           fontSize: kFontSize18x,
         ),
-        SizedBox(
+        const SizedBox(
           height: kSP10x,
         ),
-        EasyTextWidget(text: "Thomas")
+        EasyTextWidget(text: creatorName)
       ],
     );
   }
 }
 
 class ProductPrice extends StatelessWidget {
-  const ProductPrice({super.key});
+  const ProductPrice({super.key, required this.price});
+
+  final int price;
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
+        const Icon(
           Icons.monetization_on_outlined,
           size: 30,
         ),
-        SizedBox(
+        const SizedBox(
           width: kSP10x,
         ),
-        EasyTextWidget(text: '14.4 \$'),
+        EasyTextWidget(text: '$price \$'),
       ],
     );
   }
 }
 
 class ProductDescriptionView extends StatelessWidget {
-  const ProductDescriptionView({super.key});
+  const ProductDescriptionView({super.key, required this.description});
+
+  final String description;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        EasyTextWidget(
+        const EasyTextWidget(
           text: kDescriptionText,
           fontWeight: FontWeight.w600,
           fontSize: kFontSize18x,
         ),
-        SizedBox(
+        const SizedBox(
           height: kSP10x,
         ),
-        EasyTextWidget(
-            text:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
+        EasyTextWidget(text: description)
       ],
     );
   }
 }
 
 class ProductImageView extends StatelessWidget {
-  const ProductImageView({
-    super.key,
-  });
+  const ProductImageView({super.key, required this.productImage});
+
+  final String productImage;
 
   @override
   Widget build(BuildContext context) {
