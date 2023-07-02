@@ -38,8 +38,18 @@ class ProductVO {
   String? image;
 
   ///Constructor
-  ProductVO(this.id, this.title, this.price, this.category, this.description,
-      this.createdBy, this.createdAt, this.updatedAt, this.slug, this.image);
+  ProductVO(
+    this.id,
+    this.title,
+    this.price,
+    this.category,
+    this.description,
+    this.createdBy,
+    this.createdAt,
+    this.updatedAt,
+    this.slug,
+    this.image,
+  );
 
   ///Factory Constructor
   factory ProductVO.fromJson(Map<String, dynamic> json) =>
