@@ -5,13 +5,40 @@ import 'package:product/data/model/product_model_impl.dart';
 import 'package:product/data/vos/product_vo/product_vo.dart';
 import 'package:product/item_views/home_page_item_views/home_page_item_view.dart';
 import 'package:product/pages/details_page.dart';
-import 'package:product/utils/extensions.dart';
+import 'package:product/utils/enum.dart';
 import 'package:product/widgets/easy_text_widget.dart';
+import 'package:product/widgets/loading_widget.dart';
 
-final ProductModel _productModel = ProductModelImpl();
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final ProductModel _productModel = ProductModelImpl();
+  List<ProductVO> products = [];
+  LoadingStatus _loadingStatus = LoadingStatus.loading;
+  String errorMessage = "";
+
+  @override
+  void initState() {
+    _productModel.getProduct().then((productList) {
+      products = productList ?? [];
+      _loadingStatus = LoadingStatus.success;
+      if (mounted) {
+        setState(() {});
+      }
+    }).catchError((error) {
+      _loadingStatus = LoadingStatus.error;
+      errorMessage = error.toString();
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,36 +47,26 @@ class HomePage extends StatelessWidget {
           centerTitle: true,
           title: const Text("Products"),
         ),
-        body: FutureBuilder<List<ProductVO>?>(
-          future: _productModel.getProduct(),
-          builder: (context, snapShot) {
-            if (snapShot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapShot.hasError) {
-              return Center(
-                  child:
-                      EasyTextWidget(text: "Error Occur : ${snapShot.error}"));
-            }
-            final result = snapShot.data;
-            return ListView.separated(
-              itemCount: result?.length ?? 0,
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: kSP10x,
-                );
-              },
-              itemBuilder: (context, index) {
-                return ProductItemView(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              DetailsPage(slug: result?[index].slug ?? '')));
+        body: (_loadingStatus == LoadingStatus.loading)
+            ? const LoadingWidget()
+            : (_loadingStatus == LoadingStatus.error)
+                ? ErrorWidget(errorMessage)
+                : ListView.separated(
+                    itemCount: products.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: kSP10x,
+                      );
                     },
-                    productVO: result?[index]);
-              },
-            );
-          },
-        ));
+                    itemBuilder: (context, index) {
+                      return ProductItemView(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DetailsPage(
+                                    slug: products[index].slug ?? '')));
+                          },
+                          productVO: products[index]);
+                    },
+                  ));
   }
 }
