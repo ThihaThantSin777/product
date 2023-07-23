@@ -10,9 +10,10 @@ import '../utils/enum.dart';
 import '../widgets/loading_widget.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key, required this.slug});
+  const DetailsPage({super.key, required this.slug, required this.id});
 
   final String slug;
+  final String id;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -28,7 +29,14 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
+    productVO = _productModel.getProductVOByID(widget.id);
+    _loadingStatus = LoadingStatus.success;
+
     _productModel.getSingleProduct(widget.slug).then((product) {
+      if (product != null) {
+        _productModel.saveSingle(product);
+      }
+      productVO = _productModel.getProductVOByID(widget.id);
       _loadingStatus = LoadingStatus.success;
       productVO = product;
       if (mounted) {

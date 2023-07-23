@@ -130,13 +130,15 @@ class ProductImageView extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: kDetailsPageImageHeight,
-      child: CachedNetworkImage(
-        imageUrl:
-            "https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg",
-        placeholder: (context, url) => const LoadingWidget(),
-        errorWidget: (context, url, error) =>
-            const Center(child: Icon(Icons.error)),
-      ),
+      //CachedNetworkImage(
+      //         imageUrl:
+      //             "https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg",
+      //         placeholder: (context, url) => const LoadingWidget(),
+      //         errorWidget: (context, url, error) =>
+      //             const Center(child: Icon(Icons.error)),
+      //       ),
+      child: Image.network(
+          'https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg'),
     );
   }
 }

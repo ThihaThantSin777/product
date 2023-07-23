@@ -27,8 +27,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    var productListFromDataBase = _productModel.getProductListFromDataBase();
+    products = productListFromDataBase ?? [];
+    _loadingStatus = LoadingStatus.success;
+    if (mounted) {
+      setState(() {});
+    }
+
     _productModel.getProduct().then((productList) {
-      products = productList ?? [];
+      _productModel.save(productList ?? []);
+      productListFromDataBase = _productModel.getProductListFromDataBase();
+      products = productListFromDataBase ?? [];
       _loadingStatus = LoadingStatus.success;
       if (mounted) {
         setState(() {});
@@ -87,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             context
                                 .navigationNextScreen(DetailsPage(
+                                    id: products[index].id ?? '',
                                     slug: products[index].slug ?? ''))
                                 .then((value) {
                               if (mounted) {
