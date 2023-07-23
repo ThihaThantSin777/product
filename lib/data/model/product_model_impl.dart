@@ -2,9 +2,12 @@ import 'package:product/data/model/product_model.dart';
 import 'package:product/data/vos/product_vo/product_vo.dart';
 import 'package:product/network/data_agent/product_data_agent.dart';
 import 'package:product/network/data_agent/product_data_agent_impl.dart';
+import 'package:product/persistent/product_dao/product_dao.dart';
+import 'package:product/persistent/product_dao/product_dao_impl.dart';
 
 class ProductModelImpl extends ProductModel {
   final ProductDataAgent _dataAgent = ProductDataAgentImpl();
+  final ProductDAO _productDao = ProductDaoImpl();
 
   ProductModelImpl._();
 
@@ -36,4 +39,18 @@ class ProductModelImpl extends ProductModel {
             "https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg";
         return product;
       });
+
+  @override
+  List<ProductVO>? getProductListFromDataBase() =>
+      _productDao.getProductListFromDataBase();
+
+  @override
+  void save(List<ProductVO> productList) => _productDao.save(productList);
+
+  @override
+  ProductVO? getProductVOByID(String id) => _productDao.getProductByID(id);
+
+  @override
+  void saveSingle(ProductVO singleProduct) =>
+      _productDao.saveSingleProduct(singleProduct);
 }
