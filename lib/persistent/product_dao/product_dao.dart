@@ -6,4 +6,8 @@ abstract class ProductDAO {
   List<ProductVO>? getProductListFromDataBase();
 
   ProductVO? getProductByID(String id);
+
+  Stream watchProductBox();
+
+  Stream<List<ProductVO>?> getProductListFromDataBaseStream();
 }

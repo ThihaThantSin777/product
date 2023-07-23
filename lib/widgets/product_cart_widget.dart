@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:product/constant/dimens.dart';
-import 'package:product/utils/cart_product_llist.dart';
 import 'package:product/utils/extensions.dart';
 import 'package:product/utils/random_colors.dart';
 import 'package:product/widgets/easy_text_widget.dart';

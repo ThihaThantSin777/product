@@ -4,6 +4,7 @@ import 'package:product/network/data_agent/product_data_agent.dart';
 import 'package:product/network/data_agent/product_data_agent_impl.dart';
 import 'package:product/persistent/product_dao/product_dao.dart';
 import 'package:product/persistent/product_dao/product_dao_impl.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 class ProductModelImpl extends ProductModel {
   final ProductDataAgent _dataAgent = ProductDataAgentImpl();
@@ -26,6 +27,7 @@ class ProductModelImpl extends ProductModel {
               "https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg";
           return e;
         }).toList();
+        _productDao.save(temp ?? []);
         return temp;
       });
 
@@ -53,4 +55,10 @@ class ProductModelImpl extends ProductModel {
   @override
   void saveSingle(ProductVO singleProduct) =>
       _productDao.saveSingleProduct(singleProduct);
+
+  @override
+  Stream<List<ProductVO>?> getProductListFromDataBaseStream() => _productDao
+      .watchProductBox()
+      .startWith(_productDao.getProductListFromDataBaseStream())
+      .map((event) => _productDao.getProductListFromDataBase());
 }

@@ -12,4 +12,7 @@ abstract class ProductModel {
   void saveSingle(ProductVO singleProduct);
 
   ProductVO? getProductVOByID(String id);
+
+  ///DataBase
+  Stream<List<ProductVO>?> getProductListFromDataBaseStream();
 }

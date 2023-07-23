@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:product/constant/colors.dart';
 import 'package:product/constant/dimens.dart';
 import 'package:product/constant/strings.dart';
 import 'package:product/widgets/easy_text_widget.dart';
-import 'package:product/widgets/loading_widget.dart';
 
 import '../../data/vos/product_vo/product_vo.dart';
 

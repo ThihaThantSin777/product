@@ -43,6 +43,7 @@ dependencies:
   retrofit: ^4.0.1
   retrofit_generator: ^7.0.1
   cupertino_icons: ^1.0.2
+  stream_transform: ^2.1.0
 
 dev_dependencies:
   json_serializable: ^6.7.0

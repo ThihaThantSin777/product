@@ -30,12 +30,11 @@ class ProductDaoImpl extends ProductDAO {
   void saveSingleProduct(ProductVO productVO) {
     _getProductBox().put(productVO.id, productVO);
   }
-}
 
-///{
-/// 1 :"Hello",
-/// 2: "Hi"
-///}
-///
-///
-/// 2===>"Ni Hone"
+  @override
+  Stream watchProductBox() => _getProductBox().watch();
+
+  @override
+  Stream<List<ProductVO>?> getProductListFromDataBaseStream() =>
+      Stream.value(getProductListFromDataBase());
+}
