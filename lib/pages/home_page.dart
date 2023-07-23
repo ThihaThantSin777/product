@@ -21,30 +21,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ProductModel _productModel = ProductModelImpl();
-  List<ProductVO> products = [];
+  List<ProductVO>? products;
   LoadingStatus _loadingStatus = LoadingStatus.loading;
   String errorMessage = "";
 
   @override
   void initState() {
-    var productListFromDataBase = _productModel.getProductListFromDataBase();
-    products = productListFromDataBase ?? [];
-    _loadingStatus = LoadingStatus.success;
-    if (mounted) {
-      setState(() {});
-    }
-
-    _productModel.getProduct().then((productList) {
-      _productModel.save(productList ?? []);
-      productListFromDataBase = _productModel.getProductListFromDataBase();
-      products = productListFromDataBase ?? [];
-      _loadingStatus = LoadingStatus.success;
+    _productModel.getProduct().catchError((error) {
+      _loadingStatus = LoadingStatus.error;
+      errorMessage = error.toString();
       if (mounted) {
         setState(() {});
       }
-    }).catchError((error) {
-      _loadingStatus = LoadingStatus.error;
-      errorMessage = error.toString();
+    });
+
+    _productModel.getProductListFromDataBaseStream().listen((event) {
+      _loadingStatus = LoadingStatus.success;
+      products = event;
       if (mounted) {
         setState(() {});
       }
@@ -80,12 +73,12 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           title: const Text("Products"),
         ),
-        body: (_loadingStatus == LoadingStatus.loading)
+        body: (_loadingStatus == LoadingStatus.loading || products == null)
             ? const LoadingWidget()
             : (_loadingStatus == LoadingStatus.error)
                 ? ErrorWidget(errorMessage)
                 : ListView.separated(
-                    itemCount: products.length,
+                    itemCount: products?.length ?? 0,
                     separatorBuilder: (context, index) {
                       return const SizedBox(
                         height: kSP10x,
@@ -96,15 +89,15 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             context
                                 .navigationNextScreen(DetailsPage(
-                                    id: products[index].id ?? '',
-                                    slug: products[index].slug ?? ''))
+                                    id: products?[index].id ?? '',
+                                    slug: products?[index].slug ?? ''))
                                 .then((value) {
                               if (mounted) {
                                 setState(() {});
                               }
                             });
                           },
-                          productVO: products[index]);
+                          productVO: products?[index]);
                     },
                   ));
   }
