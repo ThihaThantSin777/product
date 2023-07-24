@@ -8,6 +8,8 @@ import 'package:product/data/model/product_model_impl.dart';
 import 'package:product/data/vos/category_vo/category_vo.dart';
 import 'package:product/data/vos/created_by_vo/created_by_vo.dart';
 import 'package:product/data/vos/product_vo/product_vo.dart';
+import 'package:product/network/data_agent/http_data_agent.dart';
+import 'package:product/network/data_agent/http_data_agent_impl.dart';
 import 'package:product/pages/home_page.dart';
 
 void main() async {
@@ -20,8 +22,8 @@ void main() async {
   await Hive.openBox<ProductVO>(kBoxNameForProductVO);
 
   runApp(const MyApp());
-  ProductModel _productModel = ProductModelImpl();
-  _productModel.getSingleProduct("special-cotton-shirt-for-men").then((value) {
+  HttpDataAgent httpDataAgent = HttpDataAgentImpl();
+  httpDataAgent.getMockResponse().then((value) {
     print("Value===>$value");
   }).catchError((error) {
     print("Error===>$error");
