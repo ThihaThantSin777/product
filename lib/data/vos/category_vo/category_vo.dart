@@ -15,6 +15,5 @@ class CategoryVO {
   //Constructor
   CategoryVO(this.id, this.name, this.slug);
 
-  factory CategoryVO.fromJson(Map<String, dynamic> json) =>
-      _$CategoryVOFromJson(json);
+  factory CategoryVO.fromJson(Map<String, dynamic> json) => _$CategoryVOFromJson(json);
 }

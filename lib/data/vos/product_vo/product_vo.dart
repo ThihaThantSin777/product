@@ -8,42 +8,41 @@ part 'product_vo.g.dart';
 class ProductVO {
   ///Members
   @JsonKey(name: '_id')
-  final String? id;
+  final String id;
 
   @JsonKey(name: 'title')
-  final String? title;
+  final String title;
 
   @JsonKey(name: 'price')
-  final int? price;
+  final int price;
 
   @JsonKey(name: 'category')
-  final CategoryVO? category;
+  final CategoryVO category;
 
   @JsonKey(name: 'description')
   String? description;
 
   @JsonKey(name: 'createdBy')
-  final CreatedByVO? createdBy;
+  final CreatedByVO createdBy;
 
   @JsonKey(name: 'createdAt')
-  final String? createdAt;
+  final String createdAt;
 
   @JsonKey(name: 'updatedAt')
-  final String? updatedAt;
+  final String updatedAt;
 
   @JsonKey(name: 'slug')
-  final String? slug;
+  final String slug;
 
   @JsonKey(name: 'image')
   String? image;
 
   ///Constructor
-  ProductVO(this.id, this.title, this.price, this.category, this.description,
-      this.createdBy, this.createdAt, this.updatedAt, this.slug, this.image);
+  ProductVO(this.id, this.title, this.price, this.category, this.description, this.createdBy, this.createdAt, this.updatedAt, this.slug,
+      this.image);
 
   ///Factory Constructor
-  factory ProductVO.fromJson(Map<String, dynamic> json) =>
-      _$ProductVOFromJson(json);
+  factory ProductVO.fromJson(Map<String, dynamic> json) => _$ProductVOFromJson(json);
 
   @override
   String toString() {

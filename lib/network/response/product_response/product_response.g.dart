@@ -8,11 +8,11 @@ part of 'product_response.dart';
 
 ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
     ProductResponse(
-      (json['data'] as List<dynamic>?)
-          ?.map((e) => ProductVO.fromJson(e as Map<String, dynamic>))
+      (json['data'] as List<dynamic>)
+          .map((e) => ProductVO.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['status'] as int?,
-      json['message'] as String?,
+      json['status'] as int,
+      json['message'] as String,
     );
 
 Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>

@@ -7,19 +7,15 @@ part of 'product_vo.dart';
 // **************************************************************************
 
 ProductVO _$ProductVOFromJson(Map<String, dynamic> json) => ProductVO(
-      json['_id'] as String?,
-      json['title'] as String?,
-      json['price'] as int?,
-      json['category'] == null
-          ? null
-          : CategoryVO.fromJson(json['category'] as Map<String, dynamic>),
+      json['_id'] as String,
+      json['title'] as String,
+      json['price'] as int,
+      CategoryVO.fromJson(json['category'] as Map<String, dynamic>),
       json['description'] as String?,
-      json['createdBy'] == null
-          ? null
-          : CreatedByVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-      json['createdAt'] as String?,
-      json['updatedAt'] as String?,
-      json['slug'] as String?,
+      CreatedByVO.fromJson(json['createdBy'] as Map<String, dynamic>),
+      json['createdAt'] as String,
+      json['updatedAt'] as String,
+      json['slug'] as String,
       json['image'] as String?,
     );
 
