@@ -8,8 +8,8 @@ import 'package:product/widgets/loading_widget.dart';
 
 import '../../data/vos/product_vo/product_vo.dart';
 
-class ProductDetailsItemView extends StatelessWidget {
-  const ProductDetailsItemView({super.key, required this.productVO});
+class ProductDetailsSessionView extends StatelessWidget {
+  const ProductDetailsSessionView({super.key, required this.productVO});
 
   final ProductVO? productVO;
 
@@ -131,11 +131,9 @@ class ProductImageView extends StatelessWidget {
       width: double.infinity,
       height: kDetailsPageImageHeight,
       child: CachedNetworkImage(
-        imageUrl:
-            "https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg",
+        imageUrl: "https://www.bellobello.my/wp-content/uploads/2022/09/homegrown-food-product-brands-malaysia-1024x681.jpg",
         placeholder: (context, url) => const LoadingWidget(),
-        errorWidget: (context, url, error) =>
-            const Center(child: Icon(Icons.error)),
+        errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
       ),
     );
   }

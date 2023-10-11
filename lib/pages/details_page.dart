@@ -37,7 +37,7 @@ class DetailsPage extends StatelessWidget {
           return Stack(
             children: [
               Positioned.fill(
-                  child: ProductDetailsItemView(
+                  child: ProductDetailsSessionView(
                 productVO: product,
               )),
               Align(
