@@ -12,8 +12,8 @@ SingleProductResponse _$SingleProductResponseFromJson(
       json['data'] == null
           ? null
           : ProductVO.fromJson(json['data'] as Map<String, dynamic>),
-      json['status'] as int?,
-      json['message'] as String?,
+      json['status'] as int,
+      json['message'] as String,
     );
 
 Map<String, dynamic> _$SingleProductResponseToJson(

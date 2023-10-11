@@ -1,9 +1,8 @@
 const kBaseURL = 'https://api.storerestapi.com';
 
-const kGetAllProduct = '/products';
+const kGetAllProductEndpoint = '/products';
 
-const kGetOneProduct =
-    '/products/{$kPathParameterSlugName}'; // '/products/{special-cotton-shirt-for-men}';
+const kGetOneProductEndpoint = '/products/{$kPathParameterSlugName}'; // '/products/{special-cotton-shirt-for-men}';
 
 ///Path Parameter
 const kPathParameterSlugName = 'slug';

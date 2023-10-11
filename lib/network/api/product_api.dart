@@ -13,10 +13,9 @@ abstract class ProductAPI {
     return _ProductAPI(dio);
   }
 
-  @GET(kGetAllProduct)
+  @GET(kGetAllProductEndpoint)
   Future<ProductResponse> getProductResponse();
 
-  @GET(kGetOneProduct)
-  Future<SingleProductResponse> getSingleProductResponse(
-      @Path(kPathParameterSlugName) String slug);
+  @GET(kGetOneProductEndpoint)
+  Future<SingleProductResponse> getSingleProductResponse(@Path(kPathParameterSlugName) String slug);
 }

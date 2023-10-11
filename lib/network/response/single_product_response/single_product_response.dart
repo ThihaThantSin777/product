@@ -11,16 +11,15 @@ class SingleProductResponse {
   final ProductVO? data;
 
   @JsonKey(name: 'status')
-  final int? status;
+  final int status;
 
   @JsonKey(name: 'message')
-  final String? message;
+  final String message;
 
   ///Constructor
   SingleProductResponse(this.data, this.status, this.message);
 
   ///Factory Constructor
 
-  factory SingleProductResponse.fromJson(Map<String, dynamic> json) =>
-      _$SingleProductResponseFromJson(json);
+  factory SingleProductResponse.fromJson(Map<String, dynamic> json) => _$SingleProductResponseFromJson(json);
 }
